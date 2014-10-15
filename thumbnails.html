@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>slick - the last carousel you'll ever need</title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/styles/monokai.min.css">
+    <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <meta name="description" content="slick is a responsive carousel jQuery plugin that supports multiple breakpoints, CSS3 transitions, touch events/swiping &amp; much more!">
+    <meta name="keywords" content="slick, responsive, carousel, slider, jQuery, plugin, CSS3, swipe, touch">
+    <!-- Open Graph -->
+    <meta property="og:title" content="slick - the last carousel you'll ever need" />
+    <meta property="og:description" content="slick is a responsive carousel jQuery plugin that supports multiple breakpoints, CSS3 transitions, touch events/swiping &amp; much more!" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="http://kenwheeler.github.io/slick/" />
+    <meta property="og:image" content="http://kenwheeler.github.io/slick/img/slick.gif" />
+    <meta property="og:image:type" content="image/gif" />
+    <meta property="og:image:width" content="300" />
+    <meta property="og:image:height" content="300" />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="slick - the last carousel you'll ever need" />
+    <meta name="twitter:description" content="slick is a responsive carousel jQuery plugin that supports multiple breakpoints, CSS3 transitions, touch events/swiping &amp; much more!" />
+    <meta name="twitter:creator" content="@ken_wheeler" />
+    <meta name="twitter:image:src" content="http://kenwheeler.github.io/slick/img/slick.gif" />
+    <meta name="twitter:domain" content="http://kenwheeler.github.io/slick/" />
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js" type="text/javascript"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-4390117-9', 'kenwheeler.github.io');
+      ga('send', 'pageview');
+
+    </script>
+</head>
+<body>
+
+        <div class="header">
+            <div class="header-content">
+                <h1 class="title">slick</h1>
+                <p class="subheading">the last carousel you'll ever need</p>
+                <ul class="nav">
+                    <li><a href="#demos">demos</a></li>
+                    <li><a href="#getting-started">usage</a></li>
+                    <li><a href="#settings">settings</a></li>
+                    <li><a href="#go-get-it">get it now</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="fixed-header">
+            <div class="header-content">
+                <h1 class="title">slick</h1>
+                <p class="subheading">the last carousel you'll ever need</p>
+                <ul class="nav">
+                    <li><a href="#demos">demos</a></li>
+                    <li><a href="#getting-started">usage</a></li>
+                    <li><a href="#settings">settings</a></li>
+                    <li><a href="#go-get-it">get it now</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <section id="features" class="blue">
+            <div class="content">
+                <h2>Thumbnails mode</h2>
+                <div class="thumbs">
+                    <div data-thumb="slick-img/thumbs/img_01.jpg"><img src="slick-img/img_01.jpg" ></div>
+                    <div data-thumb="slick-img/thumbs/img_02.jpg"><img src="slick-img/img_02.jpg" ></div>
+                    <div data-thumb="slick-img/thumbs/img_09.jpg"><img src="slick-img/img_09.jpg" ></div>
+                    <div data-thumb="slick-img/thumbs/img_10.jpg"><img src="slick-img/img_10.jpg" ></div>
+                    <div data-thumb="slick-img/thumbs/img_11.jpg"><img src="slick-img/img_11.jpg" ></div>
+                    <div data-thumb="slick-img/thumbs/img_12.jpg"><img src="slick-img/img_12.jpg" ></div>
+                    <div data-thumb="slick-img/thumbs/img_13.jpg"><img src="slick-img/img_13.jpg" ></div>
+                    <div data-thumb="slick-img/thumbs/img_14.jpg"><img src="slick-img/img_14.jpg" ></div>
+                    <div data-thumb="slick-img/thumbs/img_03.jpg"><img src="slick-img/img_03.jpg" ></div>
+                    <div data-thumb="slick-img/thumbs/img_04.jpg"><img src="slick-img/img_04.jpg" ></div>
+                    <div data-thumb="slick-img/thumbs/img_05.jpg"><img src="slick-img/img_05.jpg" ></div>
+                    <div data-thumb="slick-img/thumbs/img_06.jpg"><img src="slick-img/img_06.jpg" ></div>
+                    <div data-thumb="slick-img/thumbs/img_07.jpg"><img src="slick-img/img_07.jpg" ></div>
+                    <div data-thumb="slick-img/thumbs/img_08.jpg"><img src="slick-img/img_08.jpg" ></div>
+                </div>
+                
+                <pre><code>
+$('.thumbs').slick({
+    thumbs: true,
+    adaptiveHeight: true
+});
+                </code></pre>
+                <hr/>
+                <h2>Features</h2>
+                <ul class="features">
+                    <li>Simple initialization, "data-thumb" params in slide</li>
+                    <li>Support dynamic changes of slider Add | Remove
+                    <li>Auto hide thumbnail arrows where not needed</li>
+                    <li>Render thumbnails to outer container.</li>
+                    <li>Thumbnails in track auto centered. Useful where not a lot slides</li>
+                    <li>Minimal work with DOM. No unnecessary insertions deletions</li>
+                </ul>
+                <hr/>
+                <h2>Thumbs centered</h2>
+                <p>If the image is not enough to fill the scrolling area, the thumbs will be centered.</p>
+                <div class="thumbs--few">
+                    <div data-thumb="slick-img/thumbs/img_07.jpg"><img src="slick-img/img_07.jpg" ></div>
+                    <div data-thumb="slick-img/thumbs/img_12.jpg"><img src="slick-img/img_12.jpg" ></div>
+                    <div data-thumb="slick-img/thumbs/img_13.jpg"><img src="slick-img/img_13.jpg" ></div>
+                </div>
+                
+                <pre><code>
+$('.thumbs--few').slick({
+    thumbs: true,
+    thumbFrame: false,
+    adaptiveHeight: true
+});
+                </code></pre>
+                <div>
+                    With <pre class="params">thumbFrame: false</pre> use <pre class="params">.slick-thumb.slick-active</pre> to select active slide
+                </div>
+
+                <hr/>
+
+                <h2>Thumbs to outer container</h2>
+                <div class="thumbs__container"></div>
+                <div class="thumbs--container">
+                    <div data-thumb="slick-img/thumbs/img_01.jpg"><img src="slick-img/img_01.jpg" ></div>
+                    <div data-thumb="slick-img/thumbs/img_02.jpg"><img src="slick-img/img_02.jpg" ></div>
+                    <div data-thumb="slick-img/thumbs/img_09.jpg"><img src="slick-img/img_09.jpg" ></div>
+                    <div data-thumb="slick-img/thumbs/img_03.jpg"><img src="slick-img/img_03.jpg" ></div>
+                    <div data-thumb="slick-img/thumbs/img_12.jpg"><img src="slick-img/img_12.jpg" ></div>
+                    <div data-thumb="slick-img/thumbs/img_10.jpg"><img src="slick-img/img_10.jpg" ></div>
+                    <div data-thumb="slick-img/thumbs/img_11.jpg"><img src="slick-img/img_11.jpg" ></div>
+                </div>
+                
+                <pre><code>
+$('.thumbs--container').slick({
+    thumbs: true,
+    thumbArrows: false,
+    appendThumbs: $('.thumbs__container'),
+    adaptiveHeight: true
+});
+                </code></pre>
+                <hr>
+                <h2>Add & Remove</h2>
+                <div class="thumbs--add-remove">
+                    <div data-thumb="slick-img/thumbs/img_01.jpg"><img src="slick-img/img_01.jpg" ></div>
+                </div>
+                
+                 <div class="buttons">
+                    <a href="javascript:void(0)" class="button js-add-slide">Add Slide</a>
+                    <a href="javascript:void(0)" class="button js-remove-slide">Remove Slide</a>
+                </div>
+                <pre><code>
+$('.thumbs--add-remove').slick({
+    thumbs: true,
+    adaptiveHeight: true
+});
+                </code></pre>
+                <hr/>
+            </div>
+        </secion>
+<style>
+/* only for this demo page */
+    .thumbs__container {
+        margin: 0 -200px;
+    }
+    .thumbs--few .slick-thumb.slick-active img{
+        border-color: orange;
+    }
+    pre.params {
+        color: #000;
+        margin: 5px 0;
+    }
+</style>
+
+        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/highlight.min.js"></script>
+        <script type="text/javascript" src="slick/slick.js"></script>
+        <script type="text/javascript" src="js/scripts-thumbs.js"></script>
+
+        <script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+</html>
