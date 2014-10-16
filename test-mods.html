@@ -112,7 +112,7 @@ if ($(window).width() !== _.windowWidth) {
     clearTimeout(_.windowDelay);
     _.windowDelay = window.setTimeout(function() {
          /* ... */
-        _.updateThumbs(); <--- call update thumbs after resize
+        _.updateThumbArrows(); <--- call update thumbs after resize
     }, 50);
 }
 </code></pre>

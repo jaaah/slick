@@ -16,12 +16,12 @@ $(document).ready(function() {
     $('.multiple--resizeW').on('click', function(){
         multipleThumbsBox.toggleClass('multipleThumbsWide');
         alert('After manually change width, we need call updateThumbs');
-        multiple.getSlick().updateThumbs();
+        multiple.getSlick().updateThumbArrows();
     });
 
     $('.multiple--resizeH').on('click', function(){
         multipleThumbsBox.css('height', multipleThumbsBox.css('height') == '72px' ? 140 : 72);
-        setTimeout(multiple.getSlick().updateThumbs(), 20);
+        setTimeout(multiple.getSlick().updateThumbArrows(), 20);
     });
 
 
