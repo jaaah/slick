@@ -933,13 +933,13 @@
     Slick.prototype.initThumbEvents = function() {
 
         var _ = this,
-            timers = { left: 0, right: 0},
-            el, key;
+            timers = { left: 0, right: 0 },
+            key, stateThumbs;
 
         if (_.options.thumbs === true && _.slideCount > _.options.slidesToShow) {
             // prevent doubled event
-            $('img.slick-thumb', _.$thumbs).each(function(num, thumb){
-                ! $(this).data('events') && $(thumb).on('click.slick', { message: 'index', index: num }, _.changeSlide);
+            $('img.slick-thumb', _.$thumbs).each(function(num){
+                ! $(this).data('events') && $(this).on('click.slick', { message: 'index', index: num }, _.changeSlide);
             });
 
             if (_.options.thumbArrows && _.$thumbArrows.init !== true) {
@@ -950,9 +950,73 @@
                 }
                 _.$thumbArrows.init = true;
             }
+
+            stateThumbs = {
+
+                horizontal : {
+                    axis : 'pageX',
+                    modifier : 'scrollLeft',
+                    limit : _.$thumbs.get(0).clientWidth + 10,
+                },
+
+                vertical : {
+                    axis : 'pageY',
+                    modifier : 'scrollTop',
+                    limit : _.$thumbs.get(0).clientHeight + 10
+                }
+
+            }[_.options.vertical ? 'vertical' : 'horizontal'];
+
+            if (! _.$thumbs.data('events')) {
+
+                _.$thumbs.on('mousedown.slick', { //touchstart.slick
+                    action: 'start',
+                    state: stateThumbs
+                }, _.swipeThumbsHandler);
+
+                _.$thumbs.on('mousemove.slick', { //touchmove.slick
+                    action: 'move',
+                    state: stateThumbs
+                }, _.swipeThumbsHandler);
+
+                _.$thumbs.on('mouseleave.slick mouseup.slick', { //touchend.slick touchcancel.slick
+                    action: 'end',
+                    state: stateThumbs
+                }, _.swipeThumbsHandler);
+                // prevent native event
+                _.$thumbs.on('dragstart.slick', function(){ return false });
+            }
         }
 
     };
+
+    Slick.prototype.swipeThumbsHandler = function(event) {
+        var _ = this,
+            delta, state = event.data.state;
+
+        switch(event.data.action) {
+
+            case 'move':
+                if (state.isDraggable) {
+                    delta = state.start - event[state.axis];
+                    if (delta >= -state.limit && delta <= state.limit) {
+                        this[state.modifier] = state.offset + delta;
+                    }
+                }
+                break;
+
+            case 'start':
+                state.isDraggable = true;
+                state.start = event[state.axis];
+                state.offset = this[state.modifier];
+                break;
+
+            case 'end':
+                state.isDraggable = false;
+                break;
+
+        }
+    }
 
     Slick.prototype.initializeEvents = function() {
 
