@@ -8,7 +8,7 @@ $(document).ready(function() {
     var multiple = $('.thumbs--multiple').slick({
         thumbs: true,
         slidesToShow: 2,
-        appendThumbs: $('.thumbs--multiple__thumbs')
+        arrows: false
     });
 
     var multipleThumbsBox = $('.thumbs--multiple__thumbs');
@@ -64,20 +64,18 @@ $(document).ready(function() {
 
     $('.thumbs--add-remove').slick({
         thumbs: true,
-        adaptiveHeight: true
+        arrows: false,
+        vertical: true
     });
 
-    var slideIndex = 1;
+    var slideIndex = 6;
     $('.js-add-slide').on('click', function() {
-        slideIndex++;
-        console.log( $('.thumbs--add-remove').getSlick())
-        $('.thumbs--add-remove').slickAdd('<div data-thumb="slick-img/thumbs/img_0'+slideIndex+'.jpg"><img src="slick-img/img_0'+slideIndex+'.jpg" ></div>');
+        slideIndex = slideIndex++ == 11 ? 7 : slideIndex;
+        $('.thumbs--add-remove').slickAdd('<div data-thumb="slick-img/thumbs/img_'+pad(slideIndex,2)+'.jpg">'
+            +'<img src="slick-img/img_'+pad(slideIndex,2)+'.jpg" ></div>');
     });
 
     $('.js-remove-slide').on('click', function() {
-        $('.thumbs--add-remove').slickRemove(slideIndex - 1);
-        if (slideIndex !== 0){
-            slideIndex--;
-        }
+        $('.thumbs--add-remove').slickRemove($('.thumbs--add-remove').getSlick().$slides.length-1);
     });
 });
