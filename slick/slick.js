@@ -115,6 +115,7 @@
                 slideOffset: 0,
                 swipeLeft: null,
                 $list: null,
+                filtered: null,
                 touchObject: {},
                 thumbsParams: {},
                 transformsEnabled: false
@@ -444,8 +445,7 @@
         var _ = this,
             i, length = _.$slides.length,
             thumbs = [], thumb, srcList = [],
-            container = _.options.appendThumbs,
-            images = {}, index;
+            container, images = {}, index;
 
         if (_.options.thumbs === true) {
 
@@ -458,12 +458,10 @@
             }
 
             if (thumbs.length == length) {
-            
-                if ( container.get(0) == _.$slider.get(0)) {
-                    _.options.appendThumbs = container = $('<div></div>').appendTo(container);
-                }
+                container = _.options.appendThumbs.find('div.slick-thumbs-box').get(0)
+                    ? _.options.appendThumbs.find('div.slick-thumbs-box')
+                    : $('<div class="slick-thumbs-box"/>').appendTo(_.options.appendThumbs);
 
-                container.addClass('slick-thumbs-box');
                 if (_.options.vertical === true) {
                     container.addClass('slick-thumbs-box-vertical');
                 } else {
@@ -475,18 +473,26 @@
                     images = _.$thumbs.find('img');
                     for(i = 0; i < images.length; i++) {
                         index = $.inArray(images[i].getAttribute('src'), srcList);
-                        if (index == -1) {
-                            $(images[i]).remove();
+
+                        if (index == -1 || _.filtered === false) {
+                            // remove elements if slides < thumbs || remove all elements when unfiltered
+                            $(images[i]).off('click.slick');
+                            images[i].parentNode.removeChild(images[i]);
                         } else {
                             // remove duplicates
                             thumbs[index] = srcList[index] = '';
+                        }
+
+                        if (_.filtered === true) {
+                            // remove events when filtered
+                            $(images[i]).off('click.slick');
                         }
                     }
                 } else {
                     _.$thumbs = $('<div class="' +_.options.thumbsClass+ '">'
                         +'</div>').appendTo(container);
                 }
-                // apend only new thumbnails
+                // append only new thumbnails
                 _.$thumbs.get(0).insertAdjacentHTML('beforeend', thumbs.join(''));
                 
                 if (_.options.thumbFrame) {
@@ -506,6 +512,11 @@
                 }
 
             }
+
+            index = _.thumbsParams ? {
+                scrollType : _.thumbsParams.scrollType,
+                direction : _.thumbsParams.swipeDirection,
+            } : {};
 
             _.thumbsParams = {
 
@@ -543,6 +554,8 @@
 
             }[_.options.vertical ? 'vertical' : 'horizontal'];
 
+            _.thumbsParams.scrollType = index.scrollType;
+            _.thumbsParams.swipe.direction = index.direction || 1;
         }
     };
 
@@ -699,13 +712,15 @@
 
         _.touchObject = {};
 
+        _.thumbsParams = {};
+
         $('.slick-cloned', _.$slider).remove();
         if (_.$dots) {
             _.$dots.remove();
         }
         
         if (_.$thumbs) {
-            _.options.appendThumbs.empty();
+            _.$thumbs.parent('.slick-thumbs-box').remove();
         }
 
         if (_.$prevArrow) {
@@ -792,6 +807,8 @@
         var _ = this;
 
         if (filter !== null) {
+
+            _.filtered = true;
 
             _.unload();
 
@@ -965,7 +982,12 @@
             timers = { left: 0, right: 0 },
             key;
 
-        if (_.options.thumbs === true && _.slideCount > _.options.slidesToShow) {
+        if (_.$thumbs && _.slideCount > _.options.slidesToShow) {
+
+            if (_.options.rtl === true) {
+                $(window).on('load.slick.slick-' + _.instanceUid, $.proxy(_.proxyThumbScroll, _));
+            }
+
             // prevent doubled event
             $('img.slick-thumb', _.$thumbs).each(function(num){
                 ! $(this).data('events') && $(this).on('click.slick', { message: 'index', index: num }, _.changeSlide);
@@ -1013,7 +1035,7 @@
                     event.preventDefault();
 
                     delta = state.start - ev[state.axis];
-                    this[state.scroll] = state.offset + delta;
+                    this[state.scroll] = state.offset + state.direction * delta;
                 }
                 break;
 
@@ -1463,7 +1485,6 @@
 
             thumbs.className = className + ' slick-thumbs-measure';
             measuredHeight = thumbs.offsetHeight;
-            // prevents unnecessary reflow
             if (measuredHeight < thumbs.parentNode.offsetHeight) {
                 if (height != measuredHeight) {
                     _.$thumbs.height(measuredHeight);
@@ -1958,6 +1979,8 @@
 
         if (_.$slidesCache !== null) {
 
+            _.filtered = false;
+
             _.unload();
 
             _.$slideTrack.children(this.options.slide).detach();
@@ -2018,11 +2041,48 @@
         }
 
     };
+
+   Slick.prototype.proxyThumbScroll = function(negative, value) {
+
+        var _ = this,
+            scrollType = _.thumbsParams.scrollType,
+            scroll = _.thumbsParams.offset.scroll,
+            value, el;
+
+        if (_.$thumbs !== null) {
+            el = _.$thumbs.get(0);
+            value = value !== undefined ? value : el[scroll];
+
+            if (_.options.rtl === true && _.options.vertical === false) {
+                if (scrollType === undefined) {
+                    scrollType = el.scrollLeft > 0 ? 'default'
+                        : (el.scrollLeft = 1, el.scrollLeft) === 0 ? 'negative'
+                        : 'reverse';
+
+                    _.thumbsParams.scrollType = scrollType;
+                    _.thumbsParams.swipe.direction = scrollType === 'reverse' ? -1 : 1;
+                    return;
+                }
+
+                if (scrollType !== 'negative') {
+                    if (scrollType === 'default') {
+                        value = negative === true ? value : -value;
+                        value = (el.scrollWidth - el.clientWidth) - value;
+                    }
+                    if (scrollType === 'reverse' || negative === true) {
+                        value = -value;
+                    }
+                }
+            }
+
+            return value;
+        }
+    };
     
     Slick.prototype.updateThumbs = function() {
 
         var _ = this,
-            thumb, offset, delta, prop = {}, p;
+            thumb, offset, scroll, delta, prop = {}, p;
 
         if (_.$thumbs !== null) {
             thumb = _.$thumbs.find('img')[_.currentSlide];
@@ -2034,15 +2094,17 @@
 
                 offset = _.thumbsParams.offset;
 
-                if (thumb[offset.axis] - thumb.parentNode[offset.scroll] < 0) {
+                scroll = _.proxyThumbScroll(true);
+
+                if (thumb[offset.axis] - scroll < 0) {
                     delta = thumb[offset.axis];
-                } else if ((thumb[offset.axis] + thumb[offset.property]) > (thumb.parentNode[offset.scroll] + thumb.parentNode[offset.property])) {
+                } else if ((thumb[offset.axis] + thumb[offset.property]) > (scroll + thumb.parentNode[offset.property])) {
                     delta = thumb[offset.axis] + thumb[offset.property] - thumb.parentNode[offset.property]
                 }
 
                 if (delta !== undefined) {
                     $(thumb.parentNode).animate((
-                        prop[offset.scroll] = delta,
+                        prop[offset.scroll] = _.proxyThumbScroll(false, delta),
                         prop
                     ));
                 }

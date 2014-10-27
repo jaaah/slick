@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>slick - the last carousel you'll ever need</title>
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/styles/monokai.min.css">
+	<link rel="stylesheet" type="text/css" href="../slick/slick.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<meta name="description" content="slick is a responsive carousel jQuery plugin that supports multiple breakpoints, CSS3 transitions, touch events/swiping &amp; much more!">
+	<meta name="keywords" content="slick, responsive, carousel, slider, jQuery, plugin, CSS3, swipe, touch">
+	<!-- Open Graph -->
+	<meta property="og:title" content="slick - the last carousel you'll ever need" />
+	<meta property="og:description" content="slick is a responsive carousel jQuery plugin that supports multiple breakpoints, CSS3 transitions, touch events/swiping &amp; much more!" />
+	<meta property="og:type" content="article" />
+	<meta property="og:url" content="http://kenwheeler.github.io/slick/" />
+	<meta property="og:image" content="http://kenwheeler.github.io/slick/img/slick.gif" />
+	<meta property="og:image:type" content="image/gif" />
+	<meta property="og:image:width" content="300" />
+	<meta property="og:image:height" content="300" />
+	<!-- Twitter Card -->
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:title" content="slick - the last carousel you'll ever need" />
+	<meta name="twitter:description" content="slick is a responsive carousel jQuery plugin that supports multiple breakpoints, CSS3 transitions, touch events/swiping &amp; much more!" />
+	<meta name="twitter:creator" content="@ken_wheeler" />
+	<meta name="twitter:image:src" content="http://kenwheeler.github.io/slick/img/slick.gif" />
+	<meta name="twitter:domain" content="http://kenwheeler.github.io/slick/" />
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+
+</head>
+<body>
+        <div class="header">
+            <div class="header-content">
+                <h1 class="title">slick</h1>
+                <p class="subheading">the last carousel you'll ever need</p>
+                <ul class="nav">
+                    <li><a href="responsive.html">Responsive</a></li>
+                    <li><a href="rtl.html">Direction RTL</a></li>
+                    <li><a href="filtering.html">Filtering</a></li>
+                    <li><a href="add-remove.html">Add-remove</a></li>
+                    <li><a href="outer.html">Outer container</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="fixed-header">
+            <div class="header-content">
+                <h1 class="title">slick</h1>
+                <p class="subheading">the last carousel you'll ever need</p>
+                <ul class="nav">
+                    <li><a href="responsive.html">Responsive</a></li>
+                    <li><a href="rtl.html">Direction RTL</a></li>
+                    <li><a href="filtering.html">Filtering</a></li>
+                    <li><a href="add-remove.html">Add-remove</a></li>
+                    <li><a href="outer.html">Outer container</a></li>
+                </ul>
+            </div>
+        </div>
+
+		<section id="features" class="blue">
+			<div class="content">
+				<hr />
+				<h2>Filtering</h2>
+				<div class="slider filtering">
+					<div data-thumb="../slick-img/thumbs/img_01.jpg"><img src="../slick-img/img_01.jpg"></div>
+					<div data-thumb="../slick-img/thumbs/img_02.jpg"><img src="../slick-img/img_02.jpg"></div>
+					<div data-thumb="../slick-img/thumbs/img_03.jpg"><img src="../slick-img/img_03.jpg"></div>
+					<div data-thumb="../slick-img/thumbs/img_07.jpg"><img src="../slick-img/img_07.jpg"></div>
+					<div data-thumb="../slick-img/thumbs/img_08.jpg"><img src="../slick-img/img_08.jpg"></div>
+					<div data-thumb="../slick-img/thumbs/img_09.jpg"><img src="../slick-img/img_09.jpg"></div>
+					<div data-thumb="../slick-img/thumbs/img_10.jpg"><img src="../slick-img/img_10.jpg"></div>
+					<div data-thumb="../slick-img/thumbs/img_11.jpg"><img src="../slick-img/img_11.jpg"></div>
+					<div data-thumb="../slick-img/thumbs/img_03.jpg"><img src="../slick-img/img_03.jpg"></div>
+					<div data-thumb="../slick-img/thumbs/img_07.jpg"><img src="../slick-img/img_07.jpg"></div>
+					<div data-thumb="../slick-img/thumbs/img_08.jpg"><img src="../slick-img/img_08.jpg"></div>
+					<div data-thumb="../slick-img/thumbs/img_09.jpg"><img src="../slick-img/img_09.jpg"></div>
+				</div>
+				<div class="filter">
+					<a href="javascript:void(0)" class="button js-filter">Filter Slides</a>
+				</div>
+				<pre><code>
+$('.filtering').slick({
+    thumbs: true,
+    slidesToShow: 2,
+    slidesToScroll: 2
+});
+var filtered = false;
+$('.js-filter').on('click', function() {
+    if (filtered === false) {
+        $('.filtering').slickFilter(':even');
+        $(this).text('Unfilter Slides');
+        filtered = true;
+    } else {
+        $('.filtering').slickUnfilter();
+        $(this).text('Filter Slides');
+        filtered = false;
+    }
+});
+				</code></pre>
+
+				<h2>Filtering RTL</h2>
+				<div dir="rtl" class="slider filtering-rtl">
+					<div data-thumb="../slick-img/thumbs/img_01.jpg"><img src="../slick-img/img_01.jpg"></div>
+					<div data-thumb="../slick-img/thumbs/img_02.jpg"><img src="../slick-img/img_02.jpg"></div>
+					<div data-thumb="../slick-img/thumbs/img_03.jpg"><img src="../slick-img/img_03.jpg"></div>
+					<div data-thumb="../slick-img/thumbs/img_07.jpg"><img src="../slick-img/img_07.jpg"></div>
+					<div data-thumb="../slick-img/thumbs/img_08.jpg"><img src="../slick-img/img_08.jpg"></div>
+					<div data-thumb="../slick-img/thumbs/img_09.jpg"><img src="../slick-img/img_09.jpg"></div>
+					<div data-thumb="../slick-img/thumbs/img_10.jpg"><img src="../slick-img/img_10.jpg"></div>
+					<div data-thumb="../slick-img/thumbs/img_11.jpg"><img src="../slick-img/img_11.jpg"></div>
+					<div data-thumb="../slick-img/thumbs/img_03.jpg"><img src="../slick-img/img_03.jpg"></div>
+					<div data-thumb="../slick-img/thumbs/img_07.jpg"><img src="../slick-img/img_07.jpg"></div>
+					<div data-thumb="../slick-img/thumbs/img_08.jpg"><img src="../slick-img/img_08.jpg"></div>
+					<div data-thumb="../slick-img/thumbs/img_09.jpg"><img src="../slick-img/img_09.jpg"></div>
+				</div>
+				<div class="filter-rtl">
+					<a href="javascript:void(0)" class="button js-filter-rtl">Filter Slides</a>
+				</div>
+					<pre><code>
+$('.filtering-rtl').slick({
+    thumbs: true,
+    slidesToShow: 2,
+    slidesToScroll: 2,
+    rtl: true
+});
+var filtered_rtl = false;
+$('.js-filter-rtl').on('click', function() {
+    if (filtered_rtl === false) {
+        $('.filtering-rtl').slickFilter(':even');
+        $(this).text('Unfilter Slides');
+        filtered_rtl = true;
+    } else {
+        $('.filtering-rtl').slickUnfilter();
+        $(this).text('Filter Slides');
+        filtered_rtl = false;
+    }
+});
+				</code></pre>
+			</div>
+		</section>
+
+
+		
+		<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+		<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+		<script type="text/javascript" src="../slick/slick.js"></script>
+		<script type="text/javascript" src="../js/scriptst.js"></script>
+
+</body>
+</html>
