@@ -7,7 +7,7 @@ _the last carousel you'll ever need_
 
 #### Demo
 
-[http://kenwheeler.github.io/slick](http://kenwheeler.github.io/slick/)
+[http://razor.jaaah.ru/slick](http://razor.jaaah.ru/slick)
 
 #### CDN
 
